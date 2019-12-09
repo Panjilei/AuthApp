@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView, Text } from 'react-native';
 import firebase from 'firebase';
-import Header from './src/components/common/Header';
 import LoginForm from './src/components/LoginForm';
+import { Header, Button, Spinner } from './src/components/common';
 
-class App extends Component {
+export default class App extends Component {
+  state = { 
+    loggedIn: null,
+    username: ''
+  };
+
   componentWillMount () {
     const firebaseConfig = {
       apiKey: "AIzaSyDfJyyOERg24evxN55Bp3vlb9GdQio2NpQ",
@@ -18,15 +23,44 @@ class App extends Component {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-  } 
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ loggedIn: true, username: user.email });
+        console.log(user)
+      } else {
+        this.setState({ loggedIn: false });
+      }   
+    }
+  ) 
+};
+
+  renderContent() {
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <View>
+            <Button onPress={() => firebase.auth().signOut()}>
+                  Log Out
+              </Button>
+          </View>
+        );
+      case false:
+        return <LoginForm />;
+      default:
+        return <Spinner />;
+    }
+  }
+
+
   render() {
     return (
-      <View>
-        <Header headerText="Authentication"/>
-        <LoginForm/>
-      </View>
+      <SafeAreaView>
+        <View>
+          <Header title="Authentication"/>
+          {this.renderContent()}      
+        </View>
+      </SafeAreaView>
     );
   }
 }
-
-export default App;

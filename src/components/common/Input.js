@@ -22,20 +22,31 @@ const styles = {
         flex: 1,
         flexDirection: "row",
         alignItems: "center"
+    },
+    buttonStyle: {
+        width: '100%',
+        alignSelf: 'stretch',
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        borderWidth: 1,
     }
 }
 
 const { labelStyle, inputStyle, containerStyle } = styles;
 
-const Input = ({ label, placeholder }) => {
+const Input = ({ label, placeholder, secureTextEntry, value, onChangeText }) => {
     return (
-        <View style={containerStyle}>
-            <Text style={labelStyle}>{label}</Text>
-            <TextInput
-                placeholder={placeholder}
-                autoCorrect={false}
-                style={inputStyle}
-            />
+        <View 
+            style={containerStyle}>
+                <Text style={labelStyle}>{label}</Text>
+                <TextInput
+                    secureTextEntry={secureTextEntry}
+                    placeholder={placeholder}
+                    autoCorrect={false}
+                    value={value}
+                    onChangeText={onChangeText}
+                    style={inputStyle}
+                />
         </View>
     );
 };

@@ -23,11 +23,11 @@ class Header extends Component {
         return (
             <View style={css.viewStyle}>
                 <Text style={css.textStyle}>
-                    {this.props.headerText}
+                    {this.props.title}
                 </Text>
             </View>
         )
     }
 }
 
-export default Header;
+export  { Header };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const styles = {
+const css = StyleSheet.create({
     containerStyle: {
         borderWidth: 1,
         borderRadius: 2,
@@ -16,16 +16,14 @@ const styles = {
         marginRight: 5,
         marginTop: 10
     }
-};
+});
 
-class Card extends Component {
-    render() {
-        return (
-            <View style={styles.containerStyle}>
-                {this.props.children}
-            </View>
-        )
-    };
+const Card = (props) => {
+    return (
+        <View style={css.containerStyle}>
+            {props.children}
+        </View>
+    )
 };
 
 export { Card };
